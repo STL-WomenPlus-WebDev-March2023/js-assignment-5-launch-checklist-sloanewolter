@@ -24,34 +24,71 @@ function validateInput(testInput) {
     } else if (isNaN(testInput) === false) {
         return "Is a Number"
     }  
-}
+};
+
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-   let form = document.querySelector("form");
+   let form = document.getElementById("testForm");
    form.addEventListener("submit", function (event) {
-   let pilotInput = document.getElementById("pilotName");
-   let copilotInput = document.querySelector("input[name=copilotName]");
-   let fuelLevelInput =document.querySelector("input[name=fuelLevel]");
-   let cargoLevelInput= document.querySelector("inupt[name=cargoMass]");
-   if (validateInput(pilotInput.value) === "Empty" || validateInput(copilotInput.value) === "Empty" || validateInput(fuelLevelInput.value) === "Empty" 
-   || validateInput(cargoLevelInput.value) === "Empty" ) {
+   pilot = document.getElementById("pilotName").value;
+   console.log(pilot)
+   copilot = document.querySelector("input[name=copilotName]").value;
+   console.log(copilot)
+   fuelLevel =document.querySelector("input[name=fuelLevel]").value;
+   console.log(fuelLevel)
+   cargoLevel= document.querySelector("input[name=cargoMass]").value;
+   console.log(cargoLevel) 
+   
+   if (validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" 
+   || validateInput(cargoLevel) === "Empty" ) {
         alert("All fields are required");
    };
-   if (validateInput(pilotInput.value) === "Is a Number") {
+   if (validateInput(pilot) === "Is a Number") {
         alert ("Invalid Input for Pilot Name");
    };
-   if (validateInput(copilotInput.value) === "Is a Number") {
+   if (validateInput(copilot) === "Is a Number") {
         alert ("Invalid input for Copilot Name");
    };
-   if (validateInput(fuelLevelInput.value) === "Not a Number") {
+   if (validateInput(fuelLevel) === "Not a Number") {
         alert ("Invalid Input for Fuel Level");
    }
-   if(validateInput(cargoLevelInput.value)==="Not a Number") {
+   if(validateInput(cargoLevel)==="Not a Number") {
        alert ("Invalid input for Cargo Mass");
    }
+   let pilotStatus = document.getElementById("pilotStatus");
+   pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
+   let copilotStatus = document.getElementById("copilotStatus");
+   copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
+   let h2 = document.getElementById("launchStatus")
+
+   if(fuelLevel < 10000) {
+        list.style.visibility = "visible";
+        let fuelStatus = document.getElementById("fuelStatus");
+        fuelStatus.innerHTML = "Fuel level too low for launch";
+        h2.innerHTML = "Shuttle Not Ready for Launch";
+        list.style.backgroundColor = "rgb(199, 37, 78)";
+   }
+
+   if (cargoLevel > 10000) {
+        list.style.visibility = "visible";
+        let cargoStatus = document.getElementById("cargoStatus");
+        cargoStatus.innerHTML = "Cargo mass too heavy for launch";
+        h2.innerHTML = "Shuttle Not Ready for Launch";
+        list.style.backgroundColor = "rgb(199, 37, 78)";
+   }
+
+   if (cargoLevel < 10000 && fuelLevel > 10000) {
+       list.style.visibility = "visible";
+       h2.innerHTML = "Shuttle Ready for Launch";
+       list.style.backgroundColor = "green"
+   }
+
+   event.preventDefault();
+
+
 })
    }
-}
+   function(window.document, list, "Chris", "Bob", 10000, 1)
 
 async function myFetch() {
     let planetsReturned;
